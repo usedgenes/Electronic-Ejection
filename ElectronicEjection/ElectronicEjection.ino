@@ -12,8 +12,8 @@
 #define DELAY_MILLISECONDS (20000)
 #define SEALEVELPRESSURE_HPA (1013.25)
 #define NEUTRAL_SERVO_POSITION (90)
-#define TARGET_ALTITUDE_METERS (180)
-#define LAUNCH_CONDITION_ALTITUDE_METERS (5)
+#define TARGET_ALTITUDE_METERS (120)
+#define LAUNCH_CONDITION_ALTITUDE_METERS (3)
 
 Adafruit_BMP3XX bmp;
 File myFile;
@@ -95,7 +95,7 @@ void setup() {
 }
 
 void loop() {
-
+  currentAltitude = bmp.readAltitude(SEALEVELPRESSURE_HPA);
   if(!ejectedParachute && currentAltitude >= adjustedTargetAltitude) {
     servo.write(NEUTRAL_SERVO_POSITION);
     myFile = SD.open("LOGGER.TXT", FILE_WRITE);
